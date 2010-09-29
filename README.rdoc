@@ -1,0 +1,62 @@
+= Momobi
+
+Momobi can automatically detect mobile devices, Rails app will render mobile views( in app/view/_mobi/) or non-mobile views( in app/view/_mo/) according to device type, if no matching views specified, will use the original views( in app/view/). The directory structures of mobile views and non-mobile views can be just as the original views( in app/view/), there will be a higher priority than the latter.
+
+Inspired by brendanlim's mobile-fu : http://github.com/brendanlim/mobile-fu
+
+== Examples of directory structure
+    .
+    |-- _mo                               # for non-mobile
+    |   `-- layouts
+    |       |-- application.html.haml     # be rendered to non-mobile
+    |       `-- home.html.haml            # be rendered to non-mobile
+    |
+    |-- _mobi                             # for mobile
+    |   `-- layouts
+    |       `-- application.html.haml     # be rendered to mobile
+    |   `-- shared
+    |       `-- _timeline.html.haml       # be rendered to mobile
+    |
+    |-- home
+    |   `-- index.html.haml               # be rendered to mobile
+    |
+    |-- shared
+    |   `-- _timeline.html.haml           # be rendered to non-mobile
+    
+    
+== Usage
+
+Add this this one line to the controller.
+
+    class ApplicationController < ActionController::Base
+      has_momobi
+    end
+    
+Helper Method:
+
+    is_mobile_device?
+    
+    is_device?('iphone')
+    
+If you want the ability to allow a user to switch between mobile and non, just add 'mobi' parameter to the url:
+    
+    ...   link_to 'Mobile Version', '?mobi=on'   ...
+    
+    ...   link_to 'Standard Version', '?mobi=off'   ...
+    
+Also you can adjust the mobile_view session variable:
+    
+    session[:mobile_view] = true
+
+== Testing Mobile Interface
+
+If you want to force the mobile interface for testing, you can either use a 
+mobile device emulator, or you can pass 'true' to has_momobi. 
+
+  class ApplicationController < ActionController::Base
+    has_momobi(true) 
+  end
+
+
+
+Copyright (c) 2010 aligo, released under the MIT license
