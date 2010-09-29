@@ -37,11 +37,16 @@ module ActionController
         end
 
         helper_method :is_mobile_device?
+        helper_method :is_mobile_view?
         helper_method :is_device?
       end
       
       def is_mobile_device?
         @@is_mobile_device
+      end
+      
+      def is_mobile_view?
+        @@is_mobile_view
       end
 
       def is_device?(type)
@@ -73,6 +78,10 @@ module ActionController
       
       def is_mobile_device?
         request.user_agent.to_s.downcase =~ Regexp.new(ActionController::Momobi::MOBILE_USER_AGENTS)
+      end
+      
+      def is_mobile_view?
+        session[:mobile_view]
       end
       
       def is_device?(type)

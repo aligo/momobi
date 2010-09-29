@@ -35,7 +35,7 @@ Add this this one line to the controller.
 Helper Method:
 
     is_mobile_device?
-    
+    is_mobile_view?
     is_device?('iphone')
     
 If you want the ability to allow a user to switch between mobile and non, just add 'mobi' parameter to the url:
